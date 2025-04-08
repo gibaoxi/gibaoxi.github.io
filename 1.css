@@ -1,20 +1,21 @@
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,700");
 html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+body{margin:0}
 a{background-color:transparent}
 a:active,a:hover{outline:0}
 img{border:0}
 *{box-sizing:border-box}
 body{padding:0;margin:0;font-family:"Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;font-size:16px;line-height:1.5;color:#606c71}
 a{color:#515151;text-decoration:none}a:hover{text-decoration:underline}
-
+/* 调整链接部分的间距 */
 .link{font-size:16px;display:inline-block;margin-right:25px;margin-top:8px;margin-bottom:8px}
-.main-content{word-wrap:break-word}
+.main-content{word-wrap:break-word;padding-top: 0;margin-top: q1}
 .main-content :first-child{margin-top:0}
-@media screen and (min-width:64em){.main-content{max-width:64rem;padding:2rem 6rem;margin:0 auto;font-size:1.1rem}}
-@media screen and (max-width:42em){.main-content{padding:2rem 1rem;font-size:1rem}}
+@media screen and (min-width:64em){.main-content{max-width:64rem;padding:0rem 6rem;margin:0 auto;font-size:1.1rem}}
+@media screen and (max-width:42em){.main-content{padding:0 1rem;font-size:1rem}}
 .main-content img{max-width:100%}
-.main-content h1,.main-content h2,.main-content h3,.main-content h4,.main-content h5,.main-content h6{margin-top:2rem;margin-bottom:1rem;color:#159957}
+.main-content h1,.main-content h2,.main-content h3,.main-content h4,.main-content h5,.main-content h3{margin-top:0rem;margin-bottom:0.5rem;color:#159957}
 .main-content p{margin-bottom:1em}
 .site-footer{padding-top:2rem;margin-top:2rem;border-top:solid 1px #eff0f1}
 .site-footer-credits{color:#819198}
@@ -38,10 +39,3 @@ body {
   background-position: center;    /* 图片居中显示 */
   background-repeat: no-repeat;   /* 防止重复平铺 */
 }
-
-.link{
-            font-size: 16px;
-	        display: inline-block;
-	        margin-right: 25px;
-	        margin-top: 8px;
-	        margin-bottom: 8px;}
