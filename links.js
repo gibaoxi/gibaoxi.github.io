@@ -33,6 +33,8 @@ const linkData = [
   {
     title: "国外",
     links: [
+      {name:"claw",url:"https://ap-southeast-1.run.claw.cloud/signin"},
+{name:"digital",url:"https://dash.domain.digitalplat.org/auth/login"},
       { name: "groq", url: "https://groq.com/" },
       { name: "huggingface", url: "https://huggingface.co/chat/conversation/65d998e91f26106dad5ee807" },
       { name: "Zlib", url: "https://z-lib.hk/s/?languages%5B%5D=chinese&extensions%5B%5D=EPUB" },
