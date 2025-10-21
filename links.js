@@ -83,7 +83,7 @@ const linkData = [
       { name: "订阅转换", url: "https://suburl.v1.mk/" },
       { name: "搜学吧", url: "http://www.souxue8.com/" },
       { name: "音乐磁场", url: "https://hifini.com/" },
-      { name: "源仓库", url: "https://www.yckceo.com/" },
+      
       { name: "文字替换", url: "https://www.md5.cn/tools/txtreplace/" },
       { name: "解密工具", url: "https://www.sojson.com/encrypt/" },
       { name: "扩展", url: "https://chromewebstore.google.com/search/VPN?hl=zh-CN&_category=extensions" },
