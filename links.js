@@ -63,7 +63,7 @@ const linkData = [
       { name: "gmail", url: "https://mail.google.com/mail/mu/mp/755/#tl/priority/%5Esmartlabel_personal" },
       { name: "DCI", url: "https://cloud.duckyci.com/compute/instances" },
       { name: "serv00", url: "https://www.serv00.com/offer/create_new_account" },
-      { name: "X10", url: "https://x10hosting.com/panel/services/149583" },
+      { name: "dnshe", url: "https://my.dnshe.com/index.php?m=domain_hub" },
 { name: "netlib", url: "https://www.netlib.re/" },
       { name: "FTP", url: "https://ftp.hax.co.id/" },
       { name: "ssh", url: "https://web-v4rl.onrender.com/" },
