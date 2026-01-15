@@ -65,7 +65,7 @@ const linkData = [
       { name: "serv00", url: "https://www.serv00.com/offer/create_new_account" },
       { name: "dnshe", url: "https://my.dnshe.com/index.php?m=domain_hub" },
 { name: "netlib", url: "https://www.netlib.re/" },
-      { name: "FTP", url: "https://ftp.hax.co.id/" },
+      { name: "TG", url: "https://web.telegram.org/k/" },
       { name: "ssh", url: "https://web-v4rl.onrender.com/" },
       { name: "Twitter", url: "https://www.twitter.com/" },
       { name: "instagram", url: "https://www.instagram.com" },
