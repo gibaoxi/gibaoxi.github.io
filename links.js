@@ -39,7 +39,7 @@ const linkData = [
 { name: "grok", url: "https://grok.com/" },
       { name: "huggingface", url: "https://huggingface.co/chat/conversation/65d998e91f26106dad5ee807" },
       { name: "Zlib", url: "https://z-lib.hk/s/?languages%5B%5D=chinese&extensions%5B%5D=EPUB" },
-      { name: "gemini", url: "https://gemini-pro-chat-theta-steel-22.vercel.app/" },
+      { name: "gemini", url: "https://gemini.google.com/ },
       { name: "谷歌", url: "https://www.google.com/" },
       { name: "github", url: "https://github.com/" },
       { name: "小黄云", url: "https://dash.cloudflare.com/" },
