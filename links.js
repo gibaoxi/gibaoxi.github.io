@@ -42,6 +42,7 @@ const linkData = [
       { name: "gemini", url: "https://gemini.google.com/ },
       { name: "谷歌", url: "https://www.google.com/" },
       { name: "github", url: "https://github.com/" },
+      { name: "gist", url: "https://gist.github.com/" },      
       { name: "小黄云", url: "https://dash.cloudflare.com/" },
       { name: "油管", url: "https://www.youtube.com/" },
       { name: "cloudns", url: "https://www.cloudns.net/main/" },
