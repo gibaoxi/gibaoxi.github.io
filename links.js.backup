@@ -90,10 +90,6 @@ const linkData = [
       {
         name: '迅雷云',
         url: 'https://pan.xunlei.com/?path=%2F'
-      },
-      {
-        name: '源仓库',
-        url: 'https://www.yckceo.sbs/yuedu/index/index.html'
       }
     ]
   },
