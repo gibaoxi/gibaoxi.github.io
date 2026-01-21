@@ -251,10 +251,6 @@ const linkData = [
       {
         name: 'vercel',
         url: 'https://vercel.com'
-      },
-      {
-        name: 'dd',
-        url: 'https://ssh'
       }
     ]
   },
