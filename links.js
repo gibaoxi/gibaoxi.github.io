@@ -237,10 +237,6 @@ const linkData = [
         url: 'https://web.telegram.org/k/'
       },
       {
-        name: 'ssh',
-        url: 'https://web-v4rl.onrender.com/'
-      },
-      {
         name: 'Twitter',
         url: 'https://www.twitter.com/'
       },

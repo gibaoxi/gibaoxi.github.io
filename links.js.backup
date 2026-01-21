@@ -255,10 +255,6 @@ const linkData = [
       {
         name: 'vercel',
         url: 'https://vercel.com'
-      },
-      {
-        name: 'hvv',
-        url: 'https://hhj'
       }
     ]
   },
