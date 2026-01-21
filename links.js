@@ -12,10 +12,6 @@ const linkData = [
         url: 'https://www.speedtest.net/'
       },
       {
-        name: '通义千问',
-        url: 'https://tongyi.aliyun.com/qianwen/?spm=5176.28326591.0.0.40f76ee154Xx7L'
-      },
-      {
         name: 'csdn',
         url: 'https://www.csdn.net/'
       },
@@ -90,6 +86,14 @@ const linkData = [
       {
         name: '迅雷云',
         url: 'https://pan.xunlei.com/?path=%2F'
+      },
+      {
+        name: '千问',
+        url: 'https://tongyi.aliyun.com/qianwen'
+      },
+      {
+        name: '文心',
+        url: 'https://yiyan.baidu.com/'
       }
     ]
   },

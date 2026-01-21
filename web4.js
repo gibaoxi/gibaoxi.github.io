@@ -5,7 +5,7 @@ const readline = require('readline');
 const { execSync } = require('child_process');
 
 // 配置路径和文件名
-const BASE_PATH = '';
+const BASE_PATH = "/storage/emulated/0/git/web/";
 const JS_FILE = 'links.js';
 const CONFIG_FILE = 'config.json';
 
