@@ -255,10 +255,6 @@ const linkData = [
       {
         name: 'vercel',
         url: 'https://vercel.com'
-      },
-      {
-        name: 'h2',
-        url: 'https://www.hanime2.icu/'
       }
     ]
   },
