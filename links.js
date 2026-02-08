@@ -251,6 +251,10 @@ const linkData = [
       {
         name: 'vercel',
         url: 'https://vercel.com'
+      },
+      {
+        name: 'claude',
+        url: 'https://claude.ai/new'
       }
     ]
   },
