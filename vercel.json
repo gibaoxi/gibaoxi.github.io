@@ -1,10 +1,5 @@
 {
-  "functions": {
-    "api/vercel.ts": {
-      "runtime": "vercel-deno@0.1.0"
-    }
-  },
   "rewrites": [
-    { "source": "/(.*)", "destination": "/api/vercel" }
+    { "source": "/(.*)", "destination": "/api/vercel.ts" }
   ]
 }
