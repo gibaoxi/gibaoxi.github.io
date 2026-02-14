@@ -1,111 +1,139 @@
-import { serve } from 'https://deno.land/std@0.167.0/http/server.ts';
+import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
 
-// 这里的 UUID 必须和你 Deno 后台设置的一致，或者手动改掉它
-const userID = Deno.env.get('UUID') || '87e86aa6-6100-4761-bf4f-d19052e06f7b';
+const ID = (Deno.env.get("UUID") || crypto.randomUUID()).toLowerCase();
+console.log(ID); 
 
-const handler = async (req: Request): Promise<Response> => {
-  const upgrade = req.headers.get('upgrade') || '';
+const PG = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Server</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #f9f9f9; }
+        .box { padding: 20px; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: center; }
+        h1 { color: #333; margin-bottom: 10px; }
+        p { color: #666; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>App Running</h1>
+        <p>The service is operational.</p>
+    </div>
+</body>
+</html>
+`;
+
+serve(async (req: Request) => {
+  const up = req.headers.get("upgrade") || "";
   
-  // 模拟原版的 serveClient 逻辑，不再读取本地文件以免报错
-  if (upgrade.toLowerCase() != 'websocket') {
-    return new Response('<html><body><h1>Service Running</h1></body></html>', {
+  if (up.toLowerCase() !== "websocket") {
+    return new Response(PG, {
+      headers: { "content-type": "text/html; charset=utf-8" },
       status: 200,
-      headers: { 'content-type': 'text/html; charset=utf-8' },
     });
   }
 
-  const { socket, response } = Deno.upgradeWebSocket(req);
-  let remoteConnection: Deno.TcpConn;
-  let address = '';
-  let port = 0;
+  const { socket: ws, response: res } = Deno.upgradeWebSocket(req);
 
-  socket.onopen = () => console.log('socket opened');
-  
-  socket.onmessage = async (e) => {
+  ws.onmessage = async (e) => {
     try {
-      if (!(e.data instanceof ArrayBuffer)) return;
-      const vlessBuffer: ArrayBuffer = e.data;
-
-      if (remoteConnection) {
-        // 已建立连接，直接转发数据
-        await remoteConnection.write(new Uint8Array(vlessBuffer));
-      } else {
-        // 握手阶段：校验数据长度和 UUID
-        if (vlessBuffer.byteLength < 24) return;
-        
-        const version = new Uint8Array(vlessBuffer.slice(0, 1));
-        const v_uuid = Array.from(new Uint8Array(vlessBuffer.slice(1, 17)))
-                        .map(b => b.toString(16).padStart(2, '0')).join('');
-        const formatted_uuid = `${v_uuid.slice(0,8)}-${v_uuid.slice(8,12)}-${v_uuid.slice(12,16)}-${v_uuid.slice(16,20)}-${v_uuid.slice(20)}`;
-
-        if (formatted_uuid !== userID) {
-          console.log('invalid user');
-          socket.close();
-          return;
+        const d = e.data;
+        if (d instanceof ArrayBuffer) {
+            await process(ws, d);
         }
-
-        const optLength = new Uint8Array(vlessBuffer.slice(17, 18))[0];
-        const command = new Uint8Array(vlessBuffer.slice(18 + optLength, 18 + optLength + 1))[0];
-        
-        if (command !== 1) { // 仅支持 TCP
-          socket.close();
-          return;
-        }
-
-        const portIndex = 18 + optLength + 1;
-        port = new DataView(vlessBuffer.slice(portIndex, portIndex + 2)).getInt16(0);
-        
-        let addressIndex = portIndex + 2;
-        const addressType = new Uint8Array(vlessBuffer.slice(addressIndex, addressIndex + 1))[0];
-        let addressValue = '';
-        let addressLength = 0;
-        let addressValueIndex = addressIndex + 1;
-
-        // 解析地址逻辑
-        if (addressType === 1) { // IPv4
-          addressLength = 4;
-          addressValue = new Uint8Array(vlessBuffer.slice(addressValueIndex, addressValueIndex + addressLength)).join('.');
-        } else if (addressType === 2) { // Domain
-          addressLength = new Uint8Array(vlessBuffer.slice(addressValueIndex, addressValueIndex + 1))[0];
-          addressValueIndex += 1;
-          addressValue = new TextDecoder().decode(vlessBuffer.slice(addressValueIndex, addressValueIndex + addressLength));
-        }
-
-        address = addressValue;
-        console.log(`[${address}:${port}] connecting`);
-        
-        remoteConnection = await Deno.connect({ port: port, hostname: addressValue });
-
-        const rawDataIndex = addressValueIndex + addressLength;
-        const rawClientData = vlessBuffer.slice(rawDataIndex);
-        if (rawClientData.byteLength > 0) {
-          await remoteConnection.write(new Uint8Array(rawClientData));
-        }
-
-        // 关键回传逻辑：使用 Blob 封装数据
-        const responseHeader = new Uint8Array([version[0], 0]);
-        
-        remoteConnection.readable.pipeTo(new WritableStream({
-          start() {
-            socket.send(new Blob([responseHeader]));
-          },
-          write(chunk) {
-            socket.send(new Blob([chunk])); // 原代码核心：使用 Blob 发送数据
-          }
-        })).catch(() => {
-          socket.close();
-        });
-      }
-    } catch (error) {
-      socket.close();
+    } catch (err) {
+        ws.close();
     }
   };
 
-  socket.onclose = () => remoteConnection?.close();
-  socket.onerror = () => remoteConnection?.close();
+  ws.onerror = () => {};
+  return res;
+});
 
-  return response;
-};
+async function process(w: WebSocket, b: ArrayBuffer) {
+    if (b.byteLength < 24) return;
+    
+    const v = new DataView(b);
+    const u = new Uint8Array(b.slice(1, 17));
+    const us = [...u].map(x => x.toString(16).padStart(2, '0')).join('');
+    const fu = `${us.slice(0,4)}-${us.slice(4,6)}-${us.slice(6,8)}-${us.slice(8,10)}-${us.slice(10)}`;
 
-// 适配 Deno Deploy 的监听方式
-serve(handler, { port: 8080 });
+    if (fu !== ID) {
+        w.close();
+        return;
+    }
+
+    let c = 17;
+    const ol = v.getUint8(c);
+    c += 1 + ol;
+    c++; 
+    
+    const p = v.getUint16(c);
+    c += 2;
+    
+    const at = v.getUint8(c);
+    c++;
+
+    let ad = "";
+    if (at === 1) {
+        ad = `${v.getUint8(c)}.${v.getUint8(c+1)}.${v.getUint8(c+2)}.${v.getUint8(c+3)}`;
+        c += 4;
+    } else if (at === 2) {
+        const dl = v.getUint8(c);
+        c++;
+        ad = new TextDecoder().decode(b.slice(c, c + dl));
+        c += dl;
+    } else if (at === 3) {
+        ad = Array.from(new Uint16Array(b.slice(c, c + 16))).map(i => i.toString(16)).join(':');
+        c += 16;
+    }
+
+    try {
+        const nc = await Deno.connect({ hostname: ad, port: p });
+        w.send(new Uint8Array([0, 0]));
+        pipe(w, nc, b.slice(c));
+    } catch (e) {
+        w.close();
+    }
+}
+
+async function pipe(w: WebSocket, t: Deno.Conn, i: ArrayBuffer) {
+    if (i.byteLength > 0) {
+        await t.write(new Uint8Array(i));
+    }
+
+    const tr = async () => {
+        const buf = new Uint8Array(4096);
+        try {
+            while (true) {
+                const n = await t.read(buf);
+                if (n === null) break;
+                if (w.readyState === WebSocket.OPEN) {
+                    w.send(buf.subarray(0, n));
+                } else {
+                    break;
+                }
+            }
+        } catch (e) {} 
+        finally {
+            try { w.close(); } catch {}
+            try { t.close(); } catch {}
+        }
+    };
+
+    w.onmessage = async (e) => {
+        try {
+            if (e.data instanceof ArrayBuffer) {
+                await t.write(new Uint8Array(e.data));
+            }
+        } catch (e) {
+             try { t.close(); } catch {}
+        }
+    };
+    
+    w.onclose = () => t.close();
+    tr();
+}
