@@ -1,4 +1,3 @@
-// 保持原有的 import
 import { serve } from 'https://deno.land/std@0.167.0/http/server.ts';
 
 const userID = Deno.env.get('UUID') || '';
