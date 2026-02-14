@@ -1,11 +1,18 @@
 import { serve } from 'https://deno.land/std@0.167.0/http/server.ts';
 
-// 这里的 UUID 必须和你 Deno 后台设置的一致，或者手动改掉它
+// 这里的 UUID 必须和你 Deno 后台设置的一致
 const userID = Deno.env.get('UUID') || '87e86aa6-6100-4761-bf4f-d19052e06f7b';
 
 const handler = async (req: Request): Promise<Response> => {
+  const host = req.headers.get('host') || '';
   const upgrade = req.headers.get('upgrade') || '';
-  
+
+  // 验证 SNI / Host
+  // 请务必将下方引号内的内容修改为你真实的域名
+  if (host !== 'yybin.deno.dev') {
+    return new Response('Forbidden', { status: 403 });
+  }
+
   // 模拟原版的 serveClient 逻辑，不再读取本地文件以免报错
   if (upgrade.toLowerCase() != 'websocket') {
     return new Response('<html><body><h1>Service Running</h1></body></html>', {
