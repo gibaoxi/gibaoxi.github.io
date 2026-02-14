@@ -1,8 +1,8 @@
 import { serve } from 'https://deno.land/std@0.167.0/http/server.ts';
 
 // 1. 优先级：环境变量 > 硬编码 (
-const userID = Deno.env.get('UUID') || '87e86aa6-6100-4761-bf4f-d19052e06f7b';
-const validHost = Deno.env.get('DOMAIN') || 'yybin.deno.dev';
+const userID = Deno.env.get('UUID') || '';
+const validHost = Deno.env.get('DOMAIN') || '';
 
 const handler = async (req: Request): Promise<Response> => {
   const host = req.headers.get('host') || '';
