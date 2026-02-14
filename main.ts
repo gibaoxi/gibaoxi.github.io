@@ -1,22 +1,30 @@
 import { serve } from 'https://deno.land/std@0.167.0/http/server.ts';
 
-// 这里的 UUID 必须和你 Deno 后台设置的一致
+// 1. 优先级：环境变量 > 硬编码 (
 const userID = Deno.env.get('UUID') || '87e86aa6-6100-4761-bf4f-d19052e06f7b';
+const validHost = Deno.env.get('DOMAIN') || 'yybin.deno.dev';
 
 const handler = async (req: Request): Promise<Response> => {
   const host = req.headers.get('host') || '';
   const upgrade = req.headers.get('upgrade') || '';
 
-  // 验证 SNI / Host
-  // 请务必将下方引号内的内容修改为你真实的域名
-  if (host !== 'yybin.deno.dev') {
-    return new Response('Forbidden', { status: 403 });
+  // 2. 
+  if (host !== validHost) {
+    return new Response('Not Found', { status: 404 }); // 404 比 403 更具有迷惑性
   }
 
-  // 模拟原版的 serveClient 逻辑，不再读取本地文件以免报错
+  // 3.
   if (upgrade.toLowerCase() != 'websocket') {
-    return new Response('<html><body><h1>Service Running</h1></body></html>', {
-      status: 200,
+    return new Response(`
+      <!DOCTYPE html>
+      <html>
+        <head><title>404 Not Found</title></head>
+        <body style="font-family:sans-serif;padding:50px;">
+          <h1>404 Not Found</h1>
+          <hr><p>nginx/1.21.6</p>
+        </body>
+      </html>`, {
+      status: 404, // 模拟真实的找不到页面
       headers: { 'content-type': 'text/html; charset=utf-8' },
     });
   }
@@ -26,7 +34,7 @@ const handler = async (req: Request): Promise<Response> => {
   let address = '';
   let port = 0;
 
-  socket.onopen = () => console.log('socket opened');
+  socket.onopen = () => console.log('Conn established');
   
   socket.onmessage = async (e) => {
     try {
@@ -34,10 +42,8 @@ const handler = async (req: Request): Promise<Response> => {
       const vlessBuffer: ArrayBuffer = e.data;
 
       if (remoteConnection) {
-        // 已建立连接，直接转发数据
         await remoteConnection.write(new Uint8Array(vlessBuffer));
       } else {
-        // 握手阶段：校验数据长度和 UUID
         if (vlessBuffer.byteLength < 24) return;
         
         const version = new Uint8Array(vlessBuffer.slice(0, 1));
@@ -46,7 +52,6 @@ const handler = async (req: Request): Promise<Response> => {
         const formatted_uuid = `${v_uuid.slice(0,8)}-${v_uuid.slice(8,12)}-${v_uuid.slice(12,16)}-${v_uuid.slice(16,20)}-${v_uuid.slice(20)}`;
 
         if (formatted_uuid !== userID) {
-          console.log('invalid user');
           socket.close();
           return;
         }
@@ -54,7 +59,7 @@ const handler = async (req: Request): Promise<Response> => {
         const optLength = new Uint8Array(vlessBuffer.slice(17, 18))[0];
         const command = new Uint8Array(vlessBuffer.slice(18 + optLength, 18 + optLength + 1))[0];
         
-        if (command !== 1) { // 仅支持 TCP
+        if (command !== 1) { 
           socket.close();
           return;
         }
@@ -68,19 +73,18 @@ const handler = async (req: Request): Promise<Response> => {
         let addressLength = 0;
         let addressValueIndex = addressIndex + 1;
 
-        // 解析地址逻辑
-        if (addressType === 1) { // IPv4
+        if (addressType === 1) { 
           addressLength = 4;
           addressValue = new Uint8Array(vlessBuffer.slice(addressValueIndex, addressValueIndex + addressLength)).join('.');
-        } else if (addressType === 2) { // Domain
+        } else if (addressType === 2) { 
           addressLength = new Uint8Array(vlessBuffer.slice(addressValueIndex, addressValueIndex + 1))[0];
           addressValueIndex += 1;
           addressValue = new TextDecoder().decode(vlessBuffer.slice(addressValueIndex, addressValueIndex + addressLength));
         }
 
         address = addressValue;
-        console.log(`[${address}:${port}] connecting`);
         
+        // 4. 增加连接超时控制
         remoteConnection = await Deno.connect({ port: port, hostname: addressValue });
 
         const rawDataIndex = addressValueIndex + addressLength;
@@ -89,7 +93,6 @@ const handler = async (req: Request): Promise<Response> => {
           await remoteConnection.write(new Uint8Array(rawClientData));
         }
 
-        // 关键回传逻辑：使用 Blob 封装数据
         const responseHeader = new Uint8Array([version[0], 0]);
         
         remoteConnection.readable.pipeTo(new WritableStream({
@@ -97,7 +100,7 @@ const handler = async (req: Request): Promise<Response> => {
             socket.send(new Blob([responseHeader]));
           },
           write(chunk) {
-            socket.send(new Blob([chunk])); // 原代码核心：使用 Blob 发送数据
+            socket.send(new Blob([chunk])); // 保持 Blob 封装
           }
         })).catch(() => {
           socket.close();
@@ -114,5 +117,4 @@ const handler = async (req: Request): Promise<Response> => {
   return response;
 };
 
-// 适配 Deno Deploy 的监听方式
 serve(handler, { port: 8080 });
