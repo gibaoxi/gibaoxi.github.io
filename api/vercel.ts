@@ -115,4 +115,3 @@ export default async (req: Request): Promise<Response> => {
   socket.onerror = () => remoteConnection?.close();
 
   return response;
-};
