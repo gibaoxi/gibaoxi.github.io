@@ -255,6 +255,26 @@ const linkData = [
       {
         name: 'claude',
         url: 'https://claude.ai/new'
+      },
+      {
+        name: 'icm9',
+        url: 'https://icmp9.com/user/dashboard'
+      },
+      {
+        name: 'freec',
+        url: 'https://freecloud.ltd/server/purchase_lxc'
+      },
+      {
+        name: 'kr',
+        url: 'https://hub.weirdhost.xyz/server/06a17033/'
+      },
+      {
+        name: 'fr',
+        url: 'https://dashboard.katabump.com/dashboard'
+      },
+      {
+        name: 'wispbyte',
+        url: 'https://wispbyte.com/client/servers/121b8143/console'
       }
     ]
   },

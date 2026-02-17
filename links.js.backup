@@ -251,6 +251,18 @@ const linkData = [
       {
         name: 'vercel',
         url: 'https://vercel.com'
+      },
+      {
+        name: 'claude',
+        url: 'https://claude.ai/new'
+      },
+      {
+        name: 'icm9',
+        url: 'https://icmp9.com/user/dashboard'
+      },
+      {
+        name: 'freec',
+        url: 'https://freecloud.ltd/server/purchase_lxc'
       }
     ]
   },
