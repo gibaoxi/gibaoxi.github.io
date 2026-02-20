@@ -275,6 +275,10 @@ const linkData = [
       {
         name: 'wispbyte',
         url: 'https://wispbyte.com/client/servers/121b8143/console'
+      },
+      {
+        name: 'lunes',
+        url: 'https://betadash.lunes.host/'
       }
     ]
   },

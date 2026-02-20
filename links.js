@@ -279,6 +279,14 @@ const linkData = [
       {
         name: 'lunes',
         url: 'https://betadash.lunes.host/'
+      },
+      {
+        name: 'fofa',
+        url: 'https://fofa.info/f_login'
+      },
+      {
+        name: '临时',
+        url: 'https://www.linshiguge.com/'
       }
     ]
   },
