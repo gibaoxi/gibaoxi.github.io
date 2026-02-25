@@ -94,6 +94,10 @@ const linkData = [
       {
         name: '文心',
         url: 'https://yiyan.baidu.com/'
+      },
+      {
+        name: '拼多多',
+        url: 'https://mobile.yangkeduo.com/'
       }
     ]
   },
@@ -267,10 +271,6 @@ const linkData = [
       {
         name: 'kr',
         url: 'https://hub.weirdhost.xyz/server/06a17033/'
-      },
-      {
-        name: 'fr',
-        url: 'https://dashboard.katabump.com/dashboard'
       },
       {
         name: 'wispbyte',

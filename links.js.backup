@@ -94,6 +94,10 @@ const linkData = [
       {
         name: '文心',
         url: 'https://yiyan.baidu.com/'
+      },
+      {
+        name: '拼多多',
+        url: 'https://mobile.yangkeduo.com/'
       }
     ]
   },
@@ -279,6 +283,14 @@ const linkData = [
       {
         name: 'lunes',
         url: 'https://betadash.lunes.host/'
+      },
+      {
+        name: 'fofa',
+        url: 'https://fofa.info/f_login'
+      },
+      {
+        name: '临时',
+        url: 'https://www.linshiguge.com/'
       }
     ]
   },
