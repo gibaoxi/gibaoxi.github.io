@@ -271,6 +271,10 @@ const linkData = [
       {
         name: '临时',
         url: 'https://www.linshiguge.com/'
+      },
+      {
+        name: 'wasmer',
+        url: 'https://wasmer.io/gibaoxi?tab=apps'
       }
     ]
   },
