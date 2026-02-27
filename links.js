@@ -40,10 +40,6 @@ const linkData = [
         url: 'https://ipchaxun.com/'
       },
       {
-        name: '文心一言',
-        url: 'https://yiyan.baidu.com/'
-      },
-      {
         name: '搜图神器',
         url: 'http://www.soutushenqi.com/home'
       },

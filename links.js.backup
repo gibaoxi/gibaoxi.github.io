@@ -52,10 +52,6 @@ const linkData = [
         url: 'https://www.bilibili.com/'
       },
       {
-        name: '虎牙',
-        url: 'https://www.huya.com/'
-      },
-      {
         name: 'DS',
         url: 'https://chat.deepseek.com/'
       },
