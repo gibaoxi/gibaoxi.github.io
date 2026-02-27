@@ -52,10 +52,6 @@ const linkData = [
         url: 'https://www.bilibili.com/'
       },
       {
-        name: '虎牙',
-        url: 'https://www.huya.com/'
-      },
-      {
         name: 'DS',
         url: 'https://chat.deepseek.com/'
       },
@@ -98,6 +94,14 @@ const linkData = [
       {
         name: '拼多多',
         url: 'https://mobile.yangkeduo.com/'
+      },
+      {
+        name: 'kimi',
+        url: 'https://www.kimi.com/'
+      },
+      {
+        name: '豆包',
+        url: 'https://www.doubao.com/chat/'
       }
     ]
   },
@@ -169,20 +173,12 @@ const linkData = [
         url: 'https://chat.openai.com/#'
       },
       {
-        name: 'glitch',
-        url: 'https://glitch.com/dashboard'
-      },
-      {
         name: 'codesand',
         url: 'https://codesandbox.io/dashboard'
       },
       {
         name: 'back4',
         url: 'https://containers.back4app.com/apps'
-      },
-      {
-        name: 'zea',
-        url: 'https://dash.zeabur.com/projects'
       },
       {
         name: 'koyeb',
@@ -203,14 +199,6 @@ const linkData = [
       {
         name: 'replit',
         url: 'https://replit.com/~'
-      },
-      {
-        name: 'cyclic',
-        url: 'https://app.cyclic.sh/#/'
-      },
-      {
-        name: 'webapp',
-        url: 'https://webapp.io/gibaoxi'
       },
       {
         name: 'discord',
@@ -308,10 +296,6 @@ const linkData = [
       {
         name: 'ai图',
         url: 'https://pixai.art/'
-      },
-      {
-        name: 'alist',
-        url: 'http://ali.gibaoxi.cloudns.biz/'
       },
       {
         name: '百度加速',
