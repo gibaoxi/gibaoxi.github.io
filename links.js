@@ -257,11 +257,11 @@ const linkData = [
         url: 'https://hub.weirdhost.xyz/server/06a17033/'
       },
       {
-        name: 'wispbyte',
+        name: 'de',
         url: 'https://wispbyte.com/client/servers/121b8143/console'
       },
       {
-        name: 'lunes',
+        name: 'us',
         url: 'https://betadash.lunes.host/'
       },
       {
@@ -275,6 +275,10 @@ const linkData = [
       {
         name: 'wasmer',
         url: 'https://wasmer.io/gibaoxi?tab=apps'
+      },
+      {
+        name: 'sealos',
+        url: 'https://usw-1.sealos.io/'
       }
     ]
   },
