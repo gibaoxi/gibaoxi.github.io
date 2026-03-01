@@ -279,6 +279,10 @@ const linkData = [
       {
         name: 'sealos',
         url: 'https://usw-1.sealos.io/'
+      },
+      {
+        name: 'alist',
+        url: 'http://alist.gibaoxi.cc.cd:8080/@login?redirect=%2F'
       }
     ]
   },
