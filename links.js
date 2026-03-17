@@ -253,10 +253,6 @@ const linkData = [
         url: 'https://freecloud.ltd/server/purchase_lxc'
       },
       {
-        name: 'kr',
-        url: 'https://hub.weirdhost.xyz/server/06a17033/'
-      },
-      {
         name: 'de',
         url: 'https://wispbyte.com/client/servers/121b8143/console'
       },
@@ -279,6 +275,14 @@ const linkData = [
       {
         name: 'sealos',
         url: 'https://usw-1.sealos.io/'
+      },
+      {
+        name: 'kr',
+        url: 'https://hub.weirdhost.xyz/server/06a17033/'
+      },
+      {
+        name: 'de2',
+        url: 'https://client.falixnodes.net/server/2791368/console'
       }
     ]
   },
