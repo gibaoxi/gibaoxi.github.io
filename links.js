@@ -133,10 +133,6 @@ const linkData = [
         url: 'https://gemini.google.com/'
       },
       {
-        name: '谷歌',
-        url: 'https://www.google.com/'
-      },
-      {
         name: 'github',
         url: 'https://github.com/'
       },
@@ -159,10 +155,6 @@ const linkData = [
       {
         name: 'desec',
         url: 'https://desec.io/domains'
-      },
-      {
-        name: 'Pixiv',
-        url: 'https://www.pixiv.net/discovery'
       },
       {
         name: 'OpenAI',
